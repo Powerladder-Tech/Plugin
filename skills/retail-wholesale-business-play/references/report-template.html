@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Play Report — {company_name}</title>
+<style>
+  :root {
+    --primary: #1e293b;
+    --accent: #29b5e8;
+    --accent-light: #e0f4fd;
+    --green-bg: #f0fdf4;
+    --green-text: #14532d;
+    --green-label: #166534;
+    --amber-bg: #fffbeb;
+    --amber-text: #78350f;
+    --amber-label: #92400e;
+    --red-bg: #fef2f2;
+    --red-text: #7f1d1d;
+    --red-label: #991b1b;
+    --blue-bg: #eff6ff;
+    --blue-text: #1e3a5f;
+    --blue-label: #1e40af;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-900: #0f172a;
+    --shadow: 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f4f8;
+    color: var(--primary);
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .report-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: var(--radius);
+    padding: 40px;
+    color: white;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-lg);
+  }
+  .report-header h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .report-header .subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    font-weight: 400;
+  }
+  .report-header .meta {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .report-header .meta-item {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+  }
+  .report-header .meta-item strong {
+    color: white;
+  }
+
+  /* Cards */
+  .card {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 1.3rem; }
+
+  /* Business Play Summary Card */
+  .play-label {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .play-value {
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .play-derived {
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 700;
+    border-left: 4px solid var(--accent);
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+  .divider {
+    border: 0;
+    border-top: 1px solid var(--gray-100);
+    margin: 20px 0;
+  }
+
+  /* Score Display */
+  .score-hero {
+    text-align: center;
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--gray-200);
+  }
+  .score-hero .label {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .score-hero .value {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--gray-900);
+    line-height: 1;
+    margin: 8px 0 4px;
+  }
+  .score-hero .value .unit {
+    font-size: 1.2rem;
+    color: var(--gray-400);
+    font-weight: 400;
+  }
+
+  /* Score Cards Row */
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .score-card {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gray-200);
+    text-align: center;
+  }
+  .score-card .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .score-card .value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 4px;
+  }
+  .score-card.green { background: var(--green-bg); }
+  .score-card.green .label { color: var(--green-label); }
+  .score-card.green .value { color: var(--green-text); }
+  .score-card.amber { background: var(--amber-bg); }
+  .score-card.amber .label { color: var(--amber-label); }
+  .score-card.amber .value { color: var(--amber-text); }
+  .score-card.red { background: var(--red-bg); }
+  .score-card.red .label { color: var(--red-label); }
+  .score-card.red .value { color: var(--red-text); }
+  .score-card.blue { background: var(--blue-bg); }
+  .score-card.blue .label { color: var(--blue-label); }
+  .score-card.blue .value { color: var(--blue-text); }
+
+  /* Gauge Bar */
+  .gauge-container {
+    margin: 16px 0;
+  }
+  .gauge-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+  }
+  .gauge-track {
+    height: 12px;
+    border-radius: 6px;
+    background: var(--gray-100);
+    position: relative;
+    overflow: hidden;
+  }
+  .gauge-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s ease;
+  }
+  .gauge-marker {
+    position: absolute;
+    top: -4px;
+    width: 4px;
+    height: 20px;
+    background: var(--gray-900);
+    border-radius: 2px;
+    transform: translateX(-50%);
+  }
+
+  /* Quick Scan Table */
+  .scan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .scan-table th {
+    background: var(--gray-50);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    border-bottom: 2px solid var(--gray-200);
+  }
+  .scan-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .scan-table tr:last-child td { border-bottom: none; }
+  .signal-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .signal-badge.strong { background: var(--green-bg); color: var(--green-text); }
+  .signal-badge.moderate { background: var(--amber-bg); color: var(--amber-text); }
+  .signal-badge.weak { background: var(--red-bg); color: var(--red-text); }
+
+  /* FRS Waterfall */
+  .waterfall {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 180px;
+    padding: 20px 0;
+  }
+  .waterfall-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .waterfall-bar .bar {
+    width: 100%;
+    max-width: 80px;
+    border-radius: 6px 6px 0 0;
+    min-height: 8px;
+    transition: height 0.6s ease;
+  }
+  .waterfall-bar .bar-label {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    margin-top: 6px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .waterfall-bar .bar-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  /* Risk Table */
+  .risk-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .risk-desc {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    margin: 4px 0;
+  }
+  .risk-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .severity-badge {
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .severity-badge.high { background: var(--red-bg); color: var(--red-label); }
+  .severity-badge.medium { background: var(--amber-bg); color: var(--amber-label); }
+  .severity-badge.low { background: var(--green-bg); color: var(--green-label); }
+
+  /* Action Items */
+  .action-group { margin-bottom: 16px; }
+  .action-group-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .action-item {
+    padding: 10px 14px;
+    background: var(--gray-50);
+    border-radius: var(--radius-xs);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Two-Column Layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* Theme Section */
+  .theme-section { margin-bottom: 32px; }
+  .theme-section h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--primary);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 8px;
+    display: inline-block;
+  }
+  .theme-section p {
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 12px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--gray-500);
+    font-size: 0.85rem;
+  }
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Creature Image */
+  .creature-img {
+    max-width: 200px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .report-header { background: var(--primary) !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <h1>Business Play Report</h1>
+    <div class="subtitle">{company_name} — Retail & Wholesale</div>
+    <div class="meta">
+      <div class="meta-item"><strong>Date:</strong> {report_date}</div>
+      <div class="meta-item"><strong>Prepared by:</strong> Business Play AI Engine</div>
+      <div class="meta-item"><strong>Powered by:</strong> Power Ladder</div>
+    </div>
+  </div>
+
+  <!-- BUSINESS PLAY SUMMARY — Magical Creature Dashboard -->
+  <div class="card" style="overflow:hidden;">
+    <div class="card-title"><span class="icon">🧭</span> Business Play Summary</div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;">
+
+      <!-- LEFT COLUMN: Creature Card -->
+      <div style="flex:0 0 220px;text-align:center;">
+        <div style="background:linear-gradient(180deg,#f8fafc 0%,#e2e8f0 100%);border-radius:16px;padding:20px 16px;border:1px solid var(--gray-200);">
+          {creature_image_html}
+          <div style="font-size:2rem;margin-top:12px;">{creature_emoji}</div>
+          <div style="font-size:1rem;font-weight:800;color:var(--primary);margin-top:4px;">{creature_name}</div>
+          <div style="font-size:0.75rem;color:var(--gray-500);margin-top:2px;font-weight:600;">Your Business Play</div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Scores Dashboard -->
+      <div style="flex:1;min-width:280px;">
+        <div style="margin-bottom:20px;">
+          <div class="play-label">Base Play</div>
+          <div class="play-value">{creature_emoji} {creature_name}</div>
+          <div style="margin-top:14px;">
+            <div class="play-label">Derived Strategy</div>
+            <div class="play-derived">{strategic_direction}</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Sweet Spot Score (Golden Equilibrium) -->
+        <div style="text-align:center;background:var(--gray-50);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;border:1px solid var(--gray-200);">
+          <div style="font-size:0.8rem;color:var(--gray-500);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Sweet Spot Score</div>
+          <div style="font-size:3.5rem;font-weight:900;color:var(--gray-900);line-height:1;margin:8px 0 4px;">{total_score}<span style="font-size:1.2rem;color:var(--gray-400);font-weight:400;">/100</span></div>
+        </div>
+
+        <!-- OS & FRS Side-by-Side -->
+        <div style="display:flex;justify-content:space-between;gap:10px;">
+          <div style="flex:1;padding:12px;border-radius:8px;background:var(--green-bg);border:1px solid var(--gray-200);text-align:center;">
+            <div style="font-size:0.7rem;color:var(--green-label);font-weight:700;">Opportunity Score</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--green-text);">{os_score}</div>
+          </div>
+          <div style="flex:1;padding:12px;border-radius:8px;background:var(--amber-bg);border:1px solid var(--gray-200);text-align:center;">
+            <div style="font-size:0.7rem;color:var(--amber-label);font-weight:700;">Financial Readiness Score</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--amber-text);">{frs_score}</div>
+          </div>
+        </div>
+
+        <!-- Quick Ratio & Balance Gap Row -->
+        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px;">
+          <div style="flex:1;padding:12px;border-radius:8px;background:var(--blue-bg);border:1px solid var(--gray-200);text-align:center;">
+            <div style="font-size:0.7rem;color:var(--blue-label);font-weight:700;">Quick Ratio</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--blue-text);">{quick_ratio}</div>
+          </div>
+          <div style="flex:1;padding:12px;border-radius:8px;background:{gap_card_bg};border:1px solid var(--gray-200);text-align:center;">
+            <div style="font-size:0.7rem;color:{gap_card_label};font-weight:700;">Balance Gap |FRS−OS|</div>
+            <div style="font-size:1.4rem;font-weight:800;color:{gap_card_text};">{balance_gap}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY — QUICK SCAN TABLE -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> Executive Summary</div>
+    <p style="font-size:0.95rem;color:#475569;margin-bottom:16px;">{executive_summary}</p>
+    <table class="scan-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Value</th>
+          <th>Signal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ROWS GENERATED BY PYTHON — example structure: -->
+        <tr>
+          <td>Quick Ratio</td>
+          <td>{quick_ratio}</td>
+          <td><span class="signal-badge {qr_signal_class}">{qr_signal}</span></td>
+          <td>{qr_action}</td>
+        </tr>
+        <tr>
+          <td>Opportunity Score</td>
+          <td>{os_score}/100</td>
+          <td><span class="signal-badge {os_signal_class}">{os_signal}</span></td>
+          <td>{os_action}</td>
+        </tr>
+        <tr>
+          <td>Financial Readiness Score</td>
+          <td>{frs_score}/100</td>
+          <td><span class="signal-badge {frs_signal_class}">{frs_signal}</span></td>
+          <td>{frs_action}</td>
+        </tr>
+        <tr>
+          <td>Balance Gap</td>
+          <td>{balance_gap}</td>
+          <td><span class="signal-badge {gap_signal_class}">{gap_signal}</span></td>
+          <td>{gap_action}</td>
+        </tr>
+        <tr>
+          <td>Gross Margin</td>
+          <td>{gross_margin}%</td>
+          <td><span class="signal-badge {margin_signal_class}">{margin_signal}</span></td>
+          <td>{margin_action}</td>
+        </tr>
+        <tr>
+          <td>Dead Stock</td>
+          <td>{dead_stock}%</td>
+          <td><span class="signal-badge {dead_signal_class}">{dead_signal}</span></td>
+          <td>{dead_action}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SCORE GAUGES -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> Quick Ratio Gauge</div>
+      <div class="gauge-container">
+        <div class="gauge-label-row">
+          <span>0 — Critical</span>
+          <span>0.5</span>
+          <span>1.0</span>
+          <span>1.5</span>
+          <span>3.0+ — Strong</span>
+        </div>
+        <div class="gauge-track">
+          <div class="gauge-fill" style="width:{qr_pct}%;background:linear-gradient(90deg,#e74c3c 0%,#f39c12 33%,#2ecc71 66%,#27ae60 100%);"></div>
+          <div class="gauge-marker" style="left:{qr_pct}%;"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <span style="font-size:2rem;font-weight:800;">{quick_ratio}</span>
+        <span style="font-size:0.9rem;color:var(--gray-500);"> — {qr_interpretation}</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">⚖️</span> FRS Composition</div>
+      <div class="waterfall">
+        <div class="waterfall-bar">
+          <div class="bar-value">{liquidity_score}</div>
+          <div class="bar" style="height:{liquidity_pct}%;background:#3b82f6;"></div>
+          <div class="bar-label">Liquidity<br>(40%)</div>
+        </div>
+        <div class="waterfall-bar">
+          <div class="bar-value">{leverage_score}</div>
+          <div class="bar" style="height:{leverage_pct}%;background:#8b5cf6;"></div>
+          <div class="bar-label">Leverage<br>(30%)</div>
+        </div>
+        <div class="waterfall-bar">
+          <div class="bar-value">{cash_score}</div>
+          <div class="bar" style="height:{cash_pct}%;background:#06b6d4;"></div>
+          <div class="bar-label">Cash Pos.<br>(30%)</div>
+        </div>
+        <div class="waterfall-bar">
+          <div class="bar-value" style="color:var(--accent);">{frs_score}</div>
+          <div class="bar" style="height:{frs_pct}%;background:linear-gradient(180deg,#29b5e8,#0ea5e9);"></div>
+          <div class="bar-label">FRS<br>Total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OS vs FRS COMPARISON -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span> Opportunity vs Financial Readiness</div>
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;">
+            <span style="color:var(--green-label);">Opportunity Score (OS)</span>
+            <span>{os_score}/100</span>
+          </div>
+          <div class="gauge-track" style="margin-top:4px;">
+            <div class="gauge-fill" style="width:{os_score}%;background:#22c55e;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;">
+            <span style="color:var(--amber-label);">Financial Readiness Score (FRS)</span>
+            <span>{frs_score}/100</span>
+          </div>
+          <div class="gauge-track" style="margin-top:4px;">
+            <div class="gauge-fill" style="width:{frs_score}%;background:#f59e0b;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;min-width:180px;">
+        <div style="font-size:0.8rem;color:var(--gray-500);font-weight:700;text-transform:uppercase;">Balance Zone (±20)</div>
+        <div style="font-size:2.5rem;font-weight:900;color:{gap_text_color};">|{balance_gap}|</div>
+        <div style="font-size:0.85rem;color:var(--gray-500);">{balance_verdict}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME SECTIONS — inserted by Python -->
+  {theme_sections_html}
+
+  <!-- RISK FACTORS -->
+  <div class="card">
+    <div class="card-title"><span class="icon">⚠️</span> Risk Factors</div>
+    {risk_items_html}
+  </div>
+
+  <!-- RECOMMENDED ACTIONS -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Recommended Actions</div>
+    <div class="action-group">
+      <div class="action-group-title">⚡ Immediate (This Week)</div>
+      {immediate_actions_html}
+    </div>
+    <div class="action-group">
+      <div class="action-group-title">📅 Short-Term (This Month)</div>
+      {short_term_actions_html}
+    </div>
+    <div class="action-group">
+      <div class="action-group-title">🏗️ Strategic (This Quarter)</div>
+      {strategic_actions_html}
+    </div>
+  </div>
+
+  <!-- POWER LADDER CTA -->
+  <div class="card" style="background:linear-gradient(135deg,#1e293b 0%,#334155 100%);color:white;text-align:center;">
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:8px;">Ready for Real-Time Scoring?</div>
+    <div style="font-size:0.9rem;color:#94a3b8;margin-bottom:20px;">
+      This report is based on estimates from your input. Power Ladder connects your live business data through the Snowflake Ecosystem for continuously updated scoring and strategy.
+    </div>
+    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
+      <a href="mailto:dithanon@powerladder.tech" style="display:inline-block;padding:10px 24px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-weight:700;">📧 Contact Power Ladder</a>
+      <a href="https://www.powerladder.net" target="_blank" style="display:inline-block;padding:10px 24px;background:transparent;color:white;border-radius:8px;text-decoration:none;font-weight:700;border:1px solid #64748b;">🌐 Visit Website</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    Business Play Report by <a href="https://www.powerladder.net">Power Ladder</a> — Data Science + Financial Expertise
+  </div>
+
+</div>
+</body>
+</html>

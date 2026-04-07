@@ -1,0 +1,35 @@
+BUSINESS PLAY — Balance Sheet Template | Power Ladder
+"Fill in your numbers in the Value column, then upload to Business Play"
+""
+SECTION,ITEM,VALUE (Local Currency)
+CURRENT ASSETS,Cash & Cash Equivalents,
+CURRENT ASSETS,Accounts Receivable (Net),
+CURRENT ASSETS,Inventory (Net),
+CURRENT ASSETS,Prepaid Expenses & Other Current Assets,
+CURRENT ASSETS,TOTAL CURRENT ASSETS,(auto-sum above)
+""
+NON-CURRENT ASSETS,"Property, Plant & Equipment (Net)",
+NON-CURRENT ASSETS,Intangible Assets & Goodwill,
+NON-CURRENT ASSETS,Other Non-Current Assets,
+NON-CURRENT ASSETS,TOTAL NON-CURRENT ASSETS,(auto-sum above)
+""
+,TOTAL ASSETS,(sum of above totals)
+""
+CURRENT LIABILITIES,Accounts Payable,
+CURRENT LIABILITIES,Short-Term Debt & Current Portion of LTD,
+CURRENT LIABILITIES,Accrued Expenses & Other Current Liabilities,
+CURRENT LIABILITIES,TOTAL CURRENT LIABILITIES,(auto-sum above)
+""
+NON-CURRENT LIABILITIES,Long-Term Debt,
+NON-CURRENT LIABILITIES,Deferred Tax Liabilities,
+NON-CURRENT LIABILITIES,Other Non-Current Liabilities,
+NON-CURRENT LIABILITIES,TOTAL NON-CURRENT LIABILITIES,(auto-sum above)
+""
+,TOTAL LIABILITIES,(sum of above totals)
+""
+EQUITY,Paid-In Capital / Share Capital,
+EQUITY,Retained Earnings,
+EQUITY,Other Equity Components,
+EQUITY,TOTAL EQUITY,(auto-sum above)
+""
+,CHECK: Total Assets = Total Liabilities + Equity,(should be 0)

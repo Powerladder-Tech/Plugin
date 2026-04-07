@@ -1,0 +1,11 @@
+{
+  "name": "business-play",
+  "version": "0.1.0",
+  "description": "Power Ladder's Business Play Plugin — AI consulting powered by the Magical Creatures theme and Golden Equilibrium framework. Helps CEOs in Retail & Wholesale and Wellness & Hospitality make data-driven inventory and financial decisions.",
+  "author": {
+    "name": "Dithanon Khrutmuang",
+    "email": "dithanon@powerladder.tech"
+  },
+  "homepage": "https://www.powerladder.net",
+  "keywords": ["business", "retail", "wholesale", "inventory", "golden-equilibrium", "CEO", "strategy"]
+}

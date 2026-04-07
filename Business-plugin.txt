@@ -1,0 +1,34 @@
+1. โครงสร้างโปรเจก
+/smart-camel-inventory-skill
+├── assets/                  # เก็บรูปภาพสัตว์ประหลาด (Creature Images)
+├── references/              # เก็บ Logic, Template และ Script คำนวณ
+│   ├── generate-report.py
+│   ├── report-template.html
+│   └── ... (ไฟล์ .md อื่นๆ ที่คุณอัพโหลดมา)
+├── main.py                  # ไฟล์หลักสำหรับรัน Chatbot / Interface
+├── requirements.txt         # รายชื่อ Library ที่ต้องใช้ (เช่น google-generativeai, openpyxl)
+├── .env.example             # ตัวอย่างการตั้งค่า API Key
+└── README.md                # คู่มือการใช้งาน (สำคัญมากสำหรับ GitHub)
+
+2. README
+	- Note 
+	- Skills
+	  อธิบายว่าในโฟลเดอร์นี้มีอะไรบ้าง scripts and resource
+		- For more information, check out: (อาจจะเป็นหน้าเว็บ หรือ blog ที่พูดถึงสกิลนี้)
+	- About This Repository
+	  อธิบายว่า repo นี้มีสกิลอะไรบ้าง
+		- Disclaimer (ดูก่อน)
+	- Skill Sets (ข้างล่างนี้คือตัวอย่าง)
+		- ./skills: Skill examples for Creative & Design, Development & Technical, Enterprise & Communication, and Document Skills
+		- ./spec: The Agent Skills specification
+		- mplate: Skill template
+	- Try in Claude Code, Claude.ai, and the API
+
+** อยากให้อธิบายก่อนว่าเราอใคร ทำอะไร ทำยังไง
+** business play คืออะไร แล้วเอามาใช้กับธุรกิจยังไง
+
+------------------------------------------------------------------------------------------
+3.  
+
+
+nicha tanjaren''
