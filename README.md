@@ -32,3 +32,18 @@ Brings structured business consulting into Claude (Cowork mode). Guides business
 ## Installation
 
 Install directly in Claude (Cowork mode or Claude Code):
+
+---
+
+## Templates Included
+
+- `business-play-balance-sheet-template.xlsx`
+- `business-play-inventory-template.xlsx`
+
+---
+
+## About
+
+Built by [Power Ladder](https://www.powerladder.net) — helping business owners in Thailand and Southeast Asia grow smarter with AI.
+
+Contact: [dithanon@powerladder.tech](mailto:dithanon@powerladder.tech)
