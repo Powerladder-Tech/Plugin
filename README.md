@@ -28,6 +28,34 @@ Brings structured business consulting into Claude (Cowork mode). Guides business
 | `power-ladder-promotion` | Questions about the full product, pricing, or Snowflake integration |
  
 ---
+## Plugin Architecture
+
+```
+business-play-plugin/
+├── skills/
+│   ├── welcome-industry-selection/      # Gateway Keeper — routing
+│   ├── retail-wholesale-business-play/  # Smart Camel — diagnostic + delivery
+│   │   ├── assets/
+│   │   │   ├── smart-camel.png
+│   │   │   ├── calculated-ambition.png
+│   │   │   ├── unicorn-mistake-step.png
+│   │   │   ├── handle-the-ski.png
+│   │   │   ├── dinosaur-hoping-for-luck.png
+│   │   │   └── templates/
+│   │   │       ├── business-play-balance-sheet-template.xlsx
+│   │   │       └── business-play-inventory-template.xlsx
+│   │   └── references/
+│   │       ├── golden-equilibrium.md
+│   │       ├── financial-statements.md
+│   │       ├── procurement-rules.md
+│   │       ├── report-prompts.md
+│   │       ├── template-fill-guide.md
+│   │       ├── generate-report.py
+│   │       └── report-template.html
+│   ├── golden-equilibrium-scoring/      # Scoring engine (OS, FRS, Balance)
+│   ├── wellness-hospitality-business-play/  # Coming soon
+│   └── power-ladder-promotion/          # Upsell to full SaaS product
+```
 
 ## Installation
 
