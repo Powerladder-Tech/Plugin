@@ -28,11 +28,10 @@ Brings structured business consulting into Claude (Cowork mode). Guides business
 | `power-ladder-promotion` | Questions about the full product, pricing, or Snowflake integration |
  
 ---
-
 ## Workflow Diagram
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start([CEO starts session]) --> Welcome[Gateway Keeper<br/>welcome-industry-selection]
     Welcome --> Industry{Industry?}
 
@@ -43,18 +42,15 @@ flowchart LR
     Camel --> Interview
 
     subgraph Interview[Diagnostic Interview · 3 Rounds]
-        direction TB
-        R1[Round 1<br/>Business Context]
-        R2[Round 2<br/>Financial Health → FRS]
-        R3[Round 3<br/>Inventory & Ops → OS]
-        R1 --> R2 --> R3
+        direction LR
+        R1[Round 1<br/>Business Context] --> R2[Round 2<br/>Financial Health → FRS] --> R3[Round 3<br/>Inventory & Ops → OS]
     end
 
     Interview --> Score[Golden Equilibrium Scoring<br/>OS · FRS · Quick Ratio]
     Score --> Plays
 
     subgraph Plays[Business Play Assignment]
-        direction TB
+        direction LR
         Ambition[🐪 Calculated Ambition<br/>Total &gt; 60 · balanced]
         Unicorn[🦄 Unicorn Mistake Step<br/>OS − FRS &gt; 20]
         Ski[🎿 Handle the Ski<br/>Total &gt; 80 · stacks]
@@ -64,17 +60,14 @@ flowchart LR
     Plays --> Deliver
 
     subgraph Deliver[AlphaEar Report Generation]
-        direction TB
-        Cluster[Step A<br/>Cluster signals into 3–5 themes]
-        Write[Step B<br/>Write theme sections + json-chart]
-        Assemble[Step C<br/>Assemble final report]
-        Cluster --> Write --> Assemble
+        direction LR
+        Cluster[Step A<br/>Cluster signals] --> Write[Step B<br/>Write sections] --> Assemble[Step C<br/>Assemble report]
     end
 
     Deliver --> Outputs
 
     subgraph Outputs[Deliverables]
-        direction TB
+        direction LR
         Out1[Balance Sheet .xlsx]
         Out2[Inventory Analysis .xlsx]
         Out3[Strategic Report .html]
@@ -99,7 +92,6 @@ flowchart LR
     class Out1,Out2,Out3 output
     class CTA cta
 ```
-
 
 ## Plugin Architecture
 
