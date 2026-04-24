@@ -32,7 +32,7 @@ Brings structured business consulting into Claude (Cowork mode). Guides business
 ## Workflow Diagram
 
 ```mermaid
-flowchart TD
+flowchart LR
     Start([CEO starts session]) --> Welcome[welcome-industry-selection<br/>Gateway Keeper]
     Welcome --> Industry{Select Industry}
 
